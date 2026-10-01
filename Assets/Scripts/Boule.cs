@@ -24,10 +24,14 @@ public class Boule : MonoBehaviour
     /// Obtient la vélocité actuelle de la boule.
     /// </summary>
     public Vector3 Velocite => rigidbody.linearVelocity;
+    private PlayerInput controles;
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        controles = ControleurJeu.Instance.Controles;
+        InputAction actionCommencer = controles.actions.FindAction("player/Commencer");
+        actionCommencer.performed += CommencerJeu; 
     }
 
     private void OnDestroy()
@@ -74,4 +78,12 @@ public class Boule : MonoBehaviour
             rigidbody.AddForce(forceAppliquee, ForceMode.Force);
         }
     }
+    private void CommencerJeu(InputAction.CallbackContext contexte)
+    {
+        rigidbody.useGravity = true;
+        controles.actions.FindAction("Diriger").performed += CommencerDirection;
+        controles.actions.FindAction("Diriger").canceled += ArreterDirection;
+
+    }
+    
 }
