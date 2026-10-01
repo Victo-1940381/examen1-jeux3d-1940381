@@ -112,7 +112,7 @@ public class Boule : MonoBehaviour
         AccelActif = true;
         if (NombreAccel > 0 && AccelActif)
         { 
-            this.rigidbody.AddForce(Vector3.forward * 15, ForceMode.Force);
+            this.rigidbody.AddForce(Vector3.forward * 15, ForceMode.Acceleration);
             NombreAccel -= 1;
             AccelActif= false;
         }
